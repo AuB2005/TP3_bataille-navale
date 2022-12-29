@@ -78,27 +78,27 @@ class GameDao:
         return map_to_game(game_entity)
     
     def map_to_game(game_entity: GameEntity) -> Game:
-    if game_entity.id is not None:
-        game = Game(game_entity.id)
-    for player_entity in game_entity.players:
-        player = map_to_player(player_entity)
-        game.add_player(player)
-    return game
+        if game_entity.id is not None:
+            game = Game(game_entity.id)
+        for player_entity in game_entity.players:
+            player = map_to_player(player_entity)
+            game.add_player(player)
+        return game
     
     def map_to_game_entity(game: Game) -> GameEntity:
         game_entity = GameEntity()
         if game.get_id() is not None: 
-           game_entity.id = game.get_id()
-           for player in game.get_players():
-              player_entity = PlayerEntity()
-              player_entity.id = player.id
-              player_entity.name = player.get_name()
-              battlefield_entity = map_to_battlefield_entity(player.get_battlefield())
-              vessel_entities = \map_to_vessel_entities(player.get_battlefield().id, player.get_battlefield().vessels)
-              battlefield_entity.vessels = vessel_entities
-              player_entity.battle_field = battlefield_entity
-              game_entity.players.append(player_entity)
-        return game_entity
+             game_entity.id = game.get_id()
+        for player in game.get_players():
+             player_entity = PlayerEntity()
+             player_entity.id = player.id
+             player_entity.name = player.get_name()
+             battlefield_entity = map_to_battlefield_entity(player.get_battlefield())
+             vessel_entities = \map_to_vessel_entities(player.get_battlefield().id, player.get_battlefield().vessels)
+             battlefield_entity.vessels = vessel_entities
+             player_entity.battle_field = battlefield_entity
+             game_entity.players.append(player_entity)
+         return game_entity
         
 
 class PlayerDao:
