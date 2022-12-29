@@ -1,8 +1,8 @@
 from sqlalchemy import select, update
-from ..model.game import Game
-from ..dao.game_dao import GameDao, PlayerEntity, WeaponEntity, VesselEntity
-from ..model.battlefield import Battlefield
-from ..model.player import Player
+from model.game import Game
+from dao.game_dao import GameDao, PlayerEntity, WeaponEntity, VesselEntity
+from model.battlefield import Battlefield
+from model.player import Player
 class GameService:
     def __init__(self):
         self.game_dao = GameDao()
