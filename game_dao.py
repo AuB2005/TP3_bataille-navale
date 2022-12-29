@@ -35,6 +35,8 @@ class BattlefieldEntity(Base):
     max_x = Column(Integer, nullable=False)
     max_y = Column(Integer, nullable=False)
     max_z = Column(Integer, nullable=False)
+    max_power= Column(Integer, nullable=False)
+    player_id = Column(Integer, ForeignKey("player.id"), nullable=False)
     player = relationship("playerEntity", back_populates="player")
     vessel = relationship("vesselEntity", back_populates="vessels", cascade="all, delete-orphan")
 
@@ -46,9 +48,9 @@ class VesselEntity(Base):
     coord_z = Column(Integer, nullable=True)
     hits_to_be_destroyed = Column(Integer, nullable=True)
     type = Column(String, nullable=False)
-    battlefield = relationship("battlefieldEntity", back_populates="battlefield")
-    weaponfield = relationship("battlefieldEntity", back_populates="weaponfield",
-                               uselist=False, cascade="all, delete-orphan")
+    Battle_field_id = Column(Integer, ForeignKey("battlefield.id"), nullable=False)
+    battle_field =  relationship("BattlefieldEntity", back_populates="battle_field")
+    weapon = relationship("WeaponEntity", back_populates="vessel", uselist=False, cascade="all, delete-orphan")
 
 class WeaponEntity(Base):
     __tablename__ = 'weapon'
@@ -56,7 +58,8 @@ class WeaponEntity(Base):
     ammunitions = Column(Integer, nullable=True)
     range = Column(Integer, nullable=True)
     type = Column(String)
-    vessel = relationship("vesselEntity", back_populates="vessel")
+    vessel_id = Column(Integer, ForeignKey("vessel.id"), nullable = False)
+    vessel = relationship("BattlefieldEntity", back_populates="weapons")
 
 class GameDao:
     def __init__(self):
